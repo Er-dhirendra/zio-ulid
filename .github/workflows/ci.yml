@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scala: ["3.3.6", "2.13.16"]
+        scala: ["3.3.6"]   # ← remove 2.13.16, your build.sbt is Scala 3 only
         java: ["17", "21"]
 
     steps:
@@ -31,8 +31,11 @@ jobs:
           distribution: temurin
           cache: sbt
 
+      - name: Setup sbt                      # ← ADD THIS
+        uses: sbt/setup-sbt@v1              # official sbt GitHub Action
+
       - name: Run tests
         run: sbt ++${{ matrix.scala }} core/test
 
       - name: Check formatting
-        run: sbt ++${{ matrix.scala }} check
+        run: sbt scalafmtCheck              # ← fixed: scalafmtCheck not "check"

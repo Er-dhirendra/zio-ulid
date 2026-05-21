@@ -3,13 +3,13 @@ import BuildHelper._
 inThisBuild(
   List(
     organization := "dev.zio",
-    homepage     := Some(url("https://github.com/zio/zio-ulid")),
+    homepage     := Some(url("https://github.com/Er-dhirendra/zio-ulid")),
     description  := "Type-safe, purely functional ULID generation for ZIO applications.",
     licenses     := List("Apache-2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0")),
     scmInfo := Some(
       ScmInfo(
-        url("https://github.com/zio/zio-ulid"),
-        "scm:git@github.com:zio/zio-ulid.git"
+        url("https://github.com/Er-dhirendra/zio-ulid"),
+        "scm:git@github.com:Er-dhirendra/zio-ulid.git"
       )
     ),
     developers := List(

@@ -4,7 +4,7 @@
 :icons: font
 
 
-image:https://github.com/zio/zio-ulid/actions/workflows/ci.yml/badge.svg[CI,link=https://github.com/zio/zio-ulid/actions/workflows/ci.yml]
+image:https://github.com/Er-dhirendra/zio-ulid/actions/workflows/ci.yml/badge.svg[CI,link=https://github.com/Er-dhirendra/zio-ulid/actions/workflows/ci.yml]
 image:https://img.shields.io/maven-central/v/dev.zio/zio-ulid_3.svg[Maven Central,link=https://central.sonatype.com/artifact/dev.zio/zio-ulid_3]
 image:https://img.shields.io/badge/Scala_Steward-helping-blue.svg[Scala Steward,link=https://scala-steward.org]
 
@@ -184,3 +184,12 @@ sbt check
 ----
 
 Tests use https://scalameta.org/munit/[MUnit]. ZIO-based generator tests run effects via `zio.ulid.test.ZioTestSupport`.
+
+== Publishing
+
+Releases are automated with GitHub Actions and https://github.com/sbt/sbt-ci-release[sbt-ci-release].
+See link:docs/PUBLISHING.adoc[PUBLISHING.adoc] for Sonatype credentials, GPG keys, and tagging (`v0.1.0`).
+
+== License
+
+Apache License 2.0 — see link:LICENSE[LICENSE].

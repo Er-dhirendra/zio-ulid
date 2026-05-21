@@ -1,10 +1,13 @@
 # zio-ulid
 
 [![CI](https://github.com/Er-dhirendra/zio-ulid/actions/workflows/ci.yml/badge.svg)](https://github.com/Er-dhirendra/zio-ulid/actions/workflows/ci.yml)
+[![Release](https://github.com/Er-dhirendra/zio-ulid/actions/workflows/release.yml/badge.svg)](https://github.com/Er-dhirendra/zio-ulid/actions/workflows/release.yml)
 [![Maven Central](https://img.shields.io/maven-central/v/dev.zio/zio-ulid_3.svg)](https://central.sonatype.com/artifact/dev.zio/zio-ulid_3)
 [![Scala Steward](https://img.shields.io/badge/Scala_Steward-helping-blue.svg)](https://scala-steward.org)
 
 > Type-safe, purely functional ULID generation for ZIO applications.
+
+Documentation is also available in [README.adoc](README.adoc) (AsciiDoc).
 
 ## What is a ULID?
 
@@ -14,6 +17,8 @@ A **ULID** (Universally Unique Lexicographically Sortable Identifier) is a 128-b
 - **URL-safe** — 26 Crockford Base32 characters, no special characters
 - **UUID-compatible** — same 128-bit size; can be stored in UUID columns
 - **Human-readable** — `01ARZ3NDEKTSV4RRFFQ69G5FAV`
+
+See the [ULID specification](https://github.com/ulid/spec) for the full format.
 
 ```
  01ARZ3NDEKTSV4RRFFQ69G5FAV
@@ -29,7 +34,12 @@ Add the dependency to `build.sbt`:
 libraryDependencies += "dev.zio" %% "zio-ulid" % "0.1.0"
 ```
 
-Published for Scala 3.3 and Scala 2.13. Requires ZIO 2.x.
+Maven coordinates:
+
+- `dev.zio:zio-ulid_3:0.1.0` (Scala 3.3)
+- `dev.zio:zio-ulid_2.13:0.1.0` (Scala 2.13)
+
+Requires ZIO 2.x.
 
 ## Quick Start
 
@@ -118,10 +128,10 @@ val from = ULID.minFor(Instant.parse("2024-01-01T00:00:00Z").toEpochMilli)
 val to   = ULID.maxFor(Instant.parse("2024-12-31T23:59:59Z").toEpochMilli)
 ```
 
-You can also construct a ULID without the ZIO service:
+Construct a ULID without the ZIO service (non-cryptographic):
 
 ```scala
-val ulid = ULID.fast() // ThreadLocalRandom; not cryptographically secure
+val ulid = ULID.fast() // ThreadLocalRandom
 ```
 
 ## Comparison to UUID
@@ -153,9 +163,16 @@ sbt check
 
 Tests use [MUnit](https://scalameta.org/munit/). ZIO-based generator tests run effects via `zio.ulid.test.ZioTestSupport`.
 
+CI runs on every push and pull request to `main` (see [ci.yml](.github/workflows/ci.yml)).
+
 ## Publishing
 
-Releases are automated with GitHub Actions and [sbt-ci-release](https://github.com/sbt/sbt-ci-release). See [docs/PUBLISHING.adoc](docs/PUBLISHING.adoc) for Sonatype credentials, GPG keys, and tagging (`v0.1.0`).
+Releases are automated with GitHub Actions and [sbt-ci-release](https://github.com/sbt/sbt-ci-release):
+
+- **Snapshots** — each push to `main` publishes a unique `-SNAPSHOT` (via `sbt-dynver`)
+- **Stable releases** — push a git tag such as `v0.1.0` to trigger [release.yml](.github/workflows/release.yml)
+
+Setup instructions (Sonatype Central Portal, GPG keys, GitHub secrets): [docs/PUBLISHING.adoc](docs/PUBLISHING.adoc).
 
 ## License
 

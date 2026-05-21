@@ -2,7 +2,7 @@ name: Release
 
 on:
   push:
-    tags: ["v*"]          # ← only release on tags, not every main push
+    tags: ["v*"]
 
 jobs:
   release:
@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # ← needed for sbt-dynver to compute version from git tag
+          fetch-depth: 0
 
       - name: Setup JDK
         uses: actions/setup-java@v4
@@ -21,8 +21,14 @@ jobs:
           distribution: temurin
           cache: sbt
 
-      - name: Setup sbt              # ← ADD: was missing, same bug as CI
-        uses: sbt/setup-sbt@v1
+      - name: Install sbt              # ← REPLACE sbt/setup-sbt@v1 with this
+        run: |
+          curl -fL https://github.com/sbt/sbt/releases/download/v1.10.2/sbt-1.10.2.tgz \
+            | tar xz -C /usr/local
+          echo "/usr/local/sbt/bin" >> $GITHUB_PATH
+
+      - name: Verify sbt               # ← sanity check
+        run: sbt --version
 
       - name: Publish
         run: sbt ci-release

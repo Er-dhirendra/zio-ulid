@@ -7,7 +7,7 @@
 
 > Type-safe, purely functional ULID generation for ZIO applications.
 
-Documentation is also available in [README.adoc](README.adoc) (AsciiDoc).
+Maintained by [Dhirendra Kumar Kashyap](https://github.com/Er-dhirendra) · Documentation also in [README.adoc](README.adoc)
 
 ## What is a ULID?
 

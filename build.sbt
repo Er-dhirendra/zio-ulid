@@ -16,7 +16,7 @@ inThisBuild(
       Developer(
         "er-dhirendra",
         "Dhirendra Kumar Kashyap",
-        "dhirendra@example.com",
+        "dkkashyap.dev@gmail.com",
         url("https://github.com/Er-dhirendra")
       )
     )

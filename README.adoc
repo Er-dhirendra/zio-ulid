@@ -12,6 +12,8 @@ image:https://img.shields.io/badge/Scala_Steward-helping-blue.svg[Scala Steward,
 [quote]
 ____
 Type-safe, purely functional ULID generation for ZIO applications.
+
+Maintained by link:https://github.com/Er-dhirendra[Dhirendra Kumar Kashyap].
 ____
 
 == What is a ULID?

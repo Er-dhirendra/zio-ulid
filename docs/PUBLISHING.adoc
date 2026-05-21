@@ -1,0 +1,67 @@
+= Publishing zio-ulid to Maven Central
+:toc:
+
+This project uses https://github.com/sbt/sbt-ci-release[sbt-ci-release] and GitHub Actions.
+
+== One-time setup
+
+=== Sonatype Central Portal
+
+1. Create an account at https://central.sonatype.com/
+2. Register the `dev.zio` namespace (or your own `io.github.<user>` namespace).
+3. Generate a *User Token* (not your account password).
+
+=== GPG signing key
+
+[source,bash]
+----
+gpg --gen-key
+# Note the key id (LONG_ID)
+
+gpg --keyserver hkp://keyserver.ubuntu.com --send-key LONG_ID
+gpg --armor --export-secret-keys LONG_ID | base64 | pbcopy   # macOS → PGP_SECRET
+----
+
+=== GitHub repository secrets
+
+Under *Settings → Secrets and variables → Actions*, add:
+
+|===
+| Secret | Value
+
+| `SONATYPE_USERNAME`
+| User token username from Central Portal
+
+| `SONATYPE_PASSWORD`
+| User token password from Central Portal
+
+| `PGP_SECRET`
+| Base64-encoded private key (single line)
+
+| `PGP_PASSPHRASE`
+| GPG key passphrase
+|===
+
+== Release workflow
+
+* *Snapshots*: every push to `main` publishes a unique `-SNAPSHOT` (via `sbt-dynver`).
+* *Stable releases*: push a git tag starting with `v`:
+
+[source,bash]
+----
+git tag -a v0.1.0 -m "v0.1.0"
+git push origin v0.1.0
+----
+
+The link:../.github/workflows/release.yml[release workflow] runs `sbt ci-release`, which signs artifacts, uploads to Sonatype, and releases the bundle.
+
+== Verify on Maven Central
+
+After release (allow ~15–30 minutes for sync):
+
+[source,scala]
+----
+libraryDependencies += "dev.zio" %% "zio-ulid" % "0.1.0"
+----
+
+Artifacts: `dev.zio:zio-ulid_3:0.1.0` and `dev.zio:zio-ulid_2.13:0.1.0`.
